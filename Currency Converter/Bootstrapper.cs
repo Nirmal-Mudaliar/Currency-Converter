@@ -11,7 +11,7 @@ namespace Currency_Converter
 {
     public class Bootstrapper: BootstrapperBase
     {
-        private SimpleContainer _container = new SimpleContainer();
+        private readonly SimpleContainer _container = new SimpleContainer();
         public Bootstrapper()
         {
             Initialize();
