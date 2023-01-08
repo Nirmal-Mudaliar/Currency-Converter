@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:viewmodels="clr-namespace:Currency_Converter.ViewModels"
+             d:DataContext="{d:DesignInstance Type=viewmodels:HomeViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Margin="20">
@@ -20,6 +22,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -28,15 +31,32 @@
                         <ColumnDefinition Width="25" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <TextBox x:Name="txtFromVal"
+                    <TextBox x:Name="txtValueToBeConverted"
                              Margin="0, 0, 10, 0"
+                             Text="{Binding TxtValueToBeConverted}"
                              Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                             materialDesign:HintAssist.Hint="Value"/>
+                             materialDesign:HintAssist.Hint="Value"
+                             />
                     <ComboBox x:Name="cbFrom"
                               Grid.Column="1"
                               Margin="10, 0, 10, 0"
                               Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                              materialDesign:HintAssist.Hint="From"/>
+                              materialDesign:HintAssist.Hint="From"
+                              ItemsSource="{Binding FormattedCodesList}"
+                              SelectedItem="{Binding CbFrom}"
+                              SelectedIndex="0">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="{Binding Code}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    
                     <materialDesign:PackIcon Grid.Column="2"
                                              Kind="ArrowLeftRight"
                                              Height="25"
@@ -48,7 +68,21 @@
                               Grid.Column="3"
                               Margin="10, 0, 0, 0"
                               Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                              materialDesign:HintAssist.Hint="To" />
+                              materialDesign:HintAssist.Hint="To"
+                              ItemsSource="{Binding FormattedCodesList}"
+                              SelectedItem="{Binding CbTo}"
+                              SelectedIndex="1">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="{Binding Code}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
                 </Grid>
                 <Grid Grid.Row="1"
                       Margin="0, 40, 0, 0">
@@ -56,15 +90,25 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Button Content="Convert"
+                    <Button x:Name="ConvertBtnPressed" 
+                            Content="Convert"
                             Height="40"
                             Width="100"
                             HorizontalAlignment="Left" />
-                    <TextBlock Grid.Column="1"
-                               Text="0.00"
+                    <TextBlock x:Name="ConvertedValue"
+                               Grid.Column="1"
+                               Text="{Binding ConvertedValue}"
                                HorizontalAlignment="Right"
-                               FontSize="28" />
+                               FontSize="28">
+                               
+                    </TextBlock>
                 </Grid>
+                <!--<TextBlock Grid.Row="2" Margin="0, 20, 0, 0" HorizontalAlignment="Center" Text="Last updated time:"/>-->
+                <materialDesign:Chip Grid.Row="2"
+                                     Content="{Binding LastUpdatedDateTime}"
+                                     Margin="0, 10, 0, 0"
+                                     HorizontalAlignment="Right"
+                                     Style="{StaticResource MaterialDesignOutlineChip}" />
             </Grid>
         </materialDesign:Card>
 
