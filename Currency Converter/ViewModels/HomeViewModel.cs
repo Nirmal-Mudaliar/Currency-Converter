@@ -22,6 +22,14 @@ namespace Currency_Converter.ViewModels
         private ConversionResponseModel conversionResponse;
         private string txtValueToBeConverted;
         private string lastUpdatedDateTime;
+        private Visibility chipVisibility;
+
+        public Visibility ChipVisibility
+        {
+            get { return chipVisibility; }
+            set { chipVisibility = value; NotifyOfPropertyChange(nameof(ChipVisibility)); }
+        }
+
 
         public string LastUpdatedDateTime
         {
@@ -93,6 +101,7 @@ namespace Currency_Converter.ViewModels
             codesList = new ObservableCollection<ObservableCollection<string>>();
             formattedCodesList = new ObservableCollection<CurrencyCodeModel>();
             conversionResponse = new ConversionResponseModel();
+            ChipVisibility = Visibility.Collapsed;
             LoadCodeList();
         }
 
@@ -113,6 +122,7 @@ namespace Currency_Converter.ViewModels
             ConversionRate = Convert.ToDouble(conversionResponse.Conversion_Rate);
             ConvertedValue = Convert.ToDouble(TxtValueToBeConverted) * ConversionRate;
             LastUpdatedDateTime = conversionResponse.Time_Last_Update_UTC.Substring(0, 16);
+            ChipVisibility = Visibility.Visible;
         }
     }
 }

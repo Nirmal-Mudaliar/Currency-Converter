@@ -16,7 +16,7 @@
         <materialDesign:Card Grid.Row="0" Background="White"
                              Foreground="Black"
                              Padding="20"
-                             materialDesign:ElevationAssist.Elevation="Dp16"
+                             materialDesign:ElevationAssist.Elevation="Dp7"
                              UniformCornerRadius="6">
             <Grid Margin="0">
                 <Grid.RowDefinitions>
@@ -51,7 +51,7 @@
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Text="{Binding Code}" />
+                                    <TextBlock Text="{Binding FullForm}" />
                                 </Grid>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
@@ -78,7 +78,7 @@
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Text="{Binding Code}" />
+                                    <TextBlock Text="{Binding FullForm}" />
                                 </Grid>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
@@ -108,7 +108,8 @@
                                      Content="{Binding LastUpdatedDateTime}"
                                      Margin="0, 10, 0, 0"
                                      HorizontalAlignment="Right"
-                                     Style="{StaticResource MaterialDesignOutlineChip}" />
+                                     Style="{StaticResource MaterialDesignOutlineChip}"
+                                     Visibility="{Binding ChipVisibility}"/>
             </Grid>
         </materialDesign:Card>
 
