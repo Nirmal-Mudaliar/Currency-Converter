@@ -5,5 +5,5 @@ Currency converter is desktop application that lets you to convert amount from o
 Currency Converter is a responsive desktop application
 
 ## Screenshots
-<img src="src/Images/img_1" alt="image-1" height="250px">  
+<img src="Currency Converter/Images/img_1" alt="image-1" height="250px">  
 <img src="src/Images/img_1" alt="image-1" height="250px">
