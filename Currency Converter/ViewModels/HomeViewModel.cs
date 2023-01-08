@@ -151,7 +151,7 @@ namespace Currency_Converter.ViewModels
             ConversionRate = Convert.ToDouble(conversionResponse.Conversion_Rate);
             ConvertedValue = Convert.ToDouble(TxtValueToBeConverted) * ConversionRate;
             FormattedConvertedValue = $"{ConvertedValue} {CbTo.FullForm}";
-            ConversionFormula = $"1 {CbFrom.Code} = {ConvertedValue} {CbTo.Code}";
+            ConversionFormula = $"1 {CbFrom.Code} = {ConversionRate} {CbTo.Code}";
             LastUpdatedDateTime = conversionResponse.Time_Last_Update_UTC.Substring(0, 16);
             IsLoading= false;
             ChipVisibility = Visibility.Visible;
