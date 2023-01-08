@@ -23,6 +23,7 @@
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -84,32 +85,45 @@
                         </ComboBox.ItemTemplate>
                     </ComboBox>
                 </Grid>
-                <Grid Grid.Row="1"
-                      Margin="0, 40, 0, 0">
+                <materialDesign:Chip Grid.Row="1"
+                                     Content="{Binding LastUpdatedDateTime}"
+                                     Margin="0, 20, 0, 0"
+                                     HorizontalAlignment="Right"
+                                     Style="{StaticResource MaterialDesignOutlineChip}"
+                                     Visibility="{Binding ChipVisibility}" />
+                <materialDesign:Chip Grid.Row="2"
+                                     Content="{Binding ConversionFormula}"
+                                     Margin="0, 10, 0, 0"
+                                     HorizontalAlignment="Right"
+                                     Style="{StaticResource MaterialDesignOutlineChip}"
+                                     Visibility="{Binding ChipVisibility}" />
+                <Grid Grid.Row="3"
+                      Margin="0, 20, 0, 0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
+                        
                     </Grid.ColumnDefinitions>
                     <Button x:Name="ConvertBtnPressed" 
                             Content="Convert"
                             Height="40"
                             Width="100"
-                            HorizontalAlignment="Left" />
+                            HorizontalAlignment="Left"
+                            Style="{StaticResource MaterialDesignOutlinedButton}"
+                            materialDesign:ButtonProgressAssist.Value="-1"
+                            materialDesign:ButtonProgressAssist.IsIndicatorVisible="{Binding IsLoading}"
+                            materialDesign:ButtonProgressAssist.IsIndeterminate="false" />
                     <TextBlock x:Name="ConvertedValue"
                                Grid.Column="1"
-                               Text="{Binding ConvertedValue}"
+                               TextWrapping="Wrap"
+                               Text="{Binding FormattedConvertedValue}"
                                HorizontalAlignment="Right"
                                FontSize="28">
                                
                     </TextBlock>
                 </Grid>
                 <!--<TextBlock Grid.Row="2" Margin="0, 20, 0, 0" HorizontalAlignment="Center" Text="Last updated time:"/>-->
-                <materialDesign:Chip Grid.Row="2"
-                                     Content="{Binding LastUpdatedDateTime}"
-                                     Margin="0, 10, 0, 0"
-                                     HorizontalAlignment="Right"
-                                     Style="{StaticResource MaterialDesignOutlineChip}"
-                                     Visibility="{Binding ChipVisibility}"/>
+               
             </Grid>
         </materialDesign:Card>
 

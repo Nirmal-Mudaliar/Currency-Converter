@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -23,6 +24,30 @@ namespace Currency_Converter.ViewModels
         private string txtValueToBeConverted;
         private string lastUpdatedDateTime;
         private Visibility chipVisibility;
+        private string formattedConvertedValue;
+        private string conversionFormula;
+        private Boolean isLoading;
+
+        public Boolean IsLoading
+        {
+            get { return isLoading; }
+            set { isLoading = value; NotifyOfPropertyChange(nameof(IsLoading)); }
+        }
+
+
+        public string ConversionFormula
+        {
+            get { return conversionFormula; }
+            set { conversionFormula = value; NotifyOfPropertyChange(nameof(conversionFormula)); }
+        }
+
+
+        public string FormattedConvertedValue
+        {
+            get { return formattedConvertedValue; }
+            set { formattedConvertedValue = value; NotifyOfPropertyChange(nameof(FormattedConvertedValue)); }
+        }
+
 
         public Visibility ChipVisibility
         {
@@ -95,6 +120,8 @@ namespace Currency_Converter.ViewModels
             set { codesList = value; }
         }
 
+
+        // constructor
         public HomeViewModel(IApiHelper apiHelper)
         {
             _apiHelper = apiHelper;
@@ -102,6 +129,7 @@ namespace Currency_Converter.ViewModels
             formattedCodesList = new ObservableCollection<CurrencyCodeModel>();
             conversionResponse = new ConversionResponseModel();
             ChipVisibility = Visibility.Collapsed;
+            IsLoading = false;
             LoadCodeList();
         }
 
@@ -117,11 +145,15 @@ namespace Currency_Converter.ViewModels
 
         public async Task ConvertBtnPressed()
         {
-            
+            IsLoading = true;
             conversionResponse = await _apiHelper.GetConversion(CbFrom.Code.ToString(), CbTo.Code.ToString());
+            
             ConversionRate = Convert.ToDouble(conversionResponse.Conversion_Rate);
             ConvertedValue = Convert.ToDouble(TxtValueToBeConverted) * ConversionRate;
+            FormattedConvertedValue = $"{ConvertedValue} {CbTo.FullForm}";
+            ConversionFormula = $"1 {CbFrom.Code} = {ConvertedValue} {CbTo.Code}";
             LastUpdatedDateTime = conversionResponse.Time_Last_Update_UTC.Substring(0, 16);
+            IsLoading= false;
             ChipVisibility = Visibility.Visible;
         }
     }
